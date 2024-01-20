@@ -24,7 +24,7 @@ export const FileUpload = ({
   const isImage = value && /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i.test(value);
 
   const deleteValue = async () => {
-    await axios.delete("api/uploadthing", {
+    await axios.delete("/api/uploadthing", {
       data: {
         url: value,
       },

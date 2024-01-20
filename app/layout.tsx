@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
 import { ourFileRouter } from "@/app/api/uploadthing/core";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { ModalProvider } from "@/components/providers/modal-provider";
 
 const openSans = Open_Sans({ subsets: ["latin"] });
 
@@ -45,6 +46,7 @@ export default function RootLayout({
             disableTransitionOnChange
             storageKey={"discord-theme"}
           >
+            <ModalProvider />
             {children}
           </ThemeProvider>
         </body>

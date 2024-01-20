@@ -1,8 +1,9 @@
 "use client";
 
 import { z } from "zod";
-import { useIsClient } from "usehooks-ts";
+import axios from "axios";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import {
@@ -26,9 +27,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { FileUpload } from "@/components/file-upload";
-import { useState } from "react";
-import axios from "axios";
-import { useRouter } from "next/navigation";
+import { ModalType, useModalStore } from "@/hooks/use-modal-store";
 
 const formSchema = z.object({
   name: z
@@ -41,10 +40,10 @@ const formSchema = z.object({
     .url("Image URL must be a valid URL."),
 });
 
-export function InitModel() {
+export function CreateServerModal() {
+  const { isOpen, type, closeModal } = useModalStore();
+  const isModalOpen = isOpen && type === ModalType.CREATE_SERVER;
   const router = useRouter();
-  const isClient = useIsClient();
-  const [isOpened, setIsOpened] = useState(true);
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -66,21 +65,19 @@ export function InitModel() {
       await axios.post("/api/servers", values);
       reset();
       router.refresh();
-      window.location.reload();
+      closeModal();
     } catch (error) {
       console.error(JSON.stringify(error, null, 2));
     }
   };
 
-  if (!isClient) return null;
+  const handleClose = () => {
+    reset();
+    closeModal();
+  };
 
   return (
-    <Dialog
-      defaultOpen={isOpened}
-      open={isOpened}
-      onOpenChange={() => setIsOpened(true)}
-      modal={false}
-    >
+    <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className={"overflow-hidden bg-white p-0 text-black"}>
         <DialogHeader className={"px-6 pt-8"}>
           <DialogTitle className={"text-center text-2xl font-bold"}>

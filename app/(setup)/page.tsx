@@ -1,7 +1,7 @@
 import initProfile from "@/lib/init-profile";
 import prisma from "@/lib/prisma";
 import { redirect } from "next/navigation";
-import { InitModel } from "@/components/modals/init-model";
+import { InitModal } from "@/components/modals/init-modal";
 
 export default async function SetupPage() {
   const profile = await initProfile();
@@ -17,5 +17,5 @@ export default async function SetupPage() {
   if (server) {
     redirect(`/server/${server.id}`);
   }
-  return <InitModel />;
+  return <InitModal />;
 }
