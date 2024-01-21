@@ -2,7 +2,7 @@ import { currentUser, redirectToSignIn } from "@clerk/nextjs";
 import prisma from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import { ChannelType } from "@prisma/client";
-import ServerHeader from "@/components/server/server-header";
+import { ServerHeader } from "@/components/server";
 
 type ServerSidebarProps = {
   serverId: string;

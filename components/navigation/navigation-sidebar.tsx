@@ -5,8 +5,7 @@ import { currentUser, UserButton } from "@clerk/nextjs";
 import { Separator } from "@/components/ui/separator";
 import { ModeToggle } from "@/components/mode-toggle";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import NavigationItem from "@/components/navigation/navigation-item";
-import NavigationAction from "@/components/navigation/navigation-action";
+import { NavigationItem, NavigationAction } from "@/components/navigation";
 
 export default async function NavigationSidebar() {
   const user = await currentUser();

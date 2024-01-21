@@ -1,6 +1,6 @@
 import { currentUser, redirectToSignIn } from "@clerk/nextjs";
 
-import ServerSidebar from "@/components/server/server-sidebar";
+import { ServerSidebar } from "@/components/server";
 
 type ServerIdLayoutProps = {
   children: React.ReactNode;

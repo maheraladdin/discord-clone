@@ -19,6 +19,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { ModalType, useModalStore } from "@/hooks/use-modal-store";
 
 type ServerHeaderProps = {
   role?: MemberRole;
@@ -26,6 +27,7 @@ type ServerHeaderProps = {
 };
 
 export default function ServerHeader({ role, server }: ServerHeaderProps) {
+  const openModel = useModalStore((state) => state.openModal);
   const isAdmin = role === MemberRole.ADMIN;
   const isModerator = isAdmin || role === MemberRole.MODERATOR;
   return (
@@ -47,6 +49,7 @@ export default function ServerHeader({ role, server }: ServerHeaderProps) {
       >
         {isModerator && (
           <DropdownMenuItem
+            onClick={() => openModel(ModalType.INVITE_PEOPLE, { server })}
             className={
               "cursor-pointer px-3 py-2 text-sm text-indigo-600 dark:text-indigo-400"
             }
@@ -57,7 +60,10 @@ export default function ServerHeader({ role, server }: ServerHeaderProps) {
         )}
         {isAdmin && (
           <>
-            <DropdownMenuItem className={"cursor-pointer px-3 py-2 text-sm"}>
+            <DropdownMenuItem
+              onClick={() => openModel(ModalType.EDIT_SERVER, { server })}
+              className={"cursor-pointer px-3 py-2 text-sm"}
+            >
               Server Settings
               <Settings className={"ml-auto h-4 w-4"} />
             </DropdownMenuItem>

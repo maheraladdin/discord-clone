@@ -1,8 +1,9 @@
 "use client";
 
 import { z } from "zod";
-import { useIsClient } from "usehooks-ts";
+import axios from "axios";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import {
@@ -26,9 +27,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { FileUpload } from "@/components/file-upload";
-import { useState } from "react";
-import axios from "axios";
-import { useRouter } from "next/navigation";
+import { ModalType, useModalStore } from "@/hooks/use-modal-store";
+import { useEffect } from "react";
 
 const formSchema = z.object({
   name: z
@@ -41,10 +41,15 @@ const formSchema = z.object({
     .url("Image URL must be a valid URL."),
 });
 
-export default function InitModal() {
+export default function EditServerModal() {
+  const {
+    isOpen,
+    type,
+    closeModal,
+    data: { server },
+  } = useModalStore();
+  const isModalOpen = isOpen && type === ModalType.EDIT_SERVER;
   const router = useRouter();
-  const isClient = useIsClient();
-  const [isOpened, setIsOpened] = useState(true);
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -61,26 +66,29 @@ export default function InitModal() {
     watch,
   } = form;
 
+  useEffect(() => {
+    if (server) {
+      const { name, imgUrl } = server;
+      reset({
+        name,
+        imgUrl,
+      });
+    }
+  }, [server]);
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axios.post("/api/servers", values);
+      await axios.patch(`/api/servers/${server?.id}`, values);
       reset();
       router.refresh();
-      window.location.reload();
+      closeModal();
     } catch (error) {
       console.error(JSON.stringify(error, null, 2));
     }
   };
 
-  if (!isClient) return null;
-
   return (
-    <Dialog
-      defaultOpen={isOpened}
-      open={isOpened}
-      onOpenChange={() => setIsOpened(true)}
-      modal={false}
-    >
+    <Dialog open={isModalOpen} onOpenChange={closeModal}>
       <DialogContent className={"overflow-hidden bg-white p-0 text-black"}>
         <DialogHeader className={"px-6 pt-8"}>
           <DialogTitle className={"text-center text-2xl font-bold"}>
@@ -147,9 +155,9 @@ export default function InitModal() {
                 variant={"primary"}
                 type={"submit"}
                 disabled={isSubmitting}
-                className={"w-full"}
+                className={"w-full lg:w-auto"}
               >
-                Create
+                Save
               </Button>
             </DialogFooter>
           </form>

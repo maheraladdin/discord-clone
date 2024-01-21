@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRouter, useParams } from "next/navigation";
 
 import { cn } from "@/lib/utils";
-import ActionTooltip from "@/components/tooltips/action-tooltip";
+import { ActionTooltip } from "@/components/tooltips";
 
 type NavigationItemProps = {
   id: string;

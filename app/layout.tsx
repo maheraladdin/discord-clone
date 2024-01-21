@@ -8,8 +8,7 @@ import { extractRouterConfig } from "uploadthing/server";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
 import { ourFileRouter } from "@/app/api/uploadthing/core";
-import { ThemeProvider } from "@/components/providers/theme-provider";
-import { ModalProvider } from "@/components/providers/modal-provider";
+import { ThemeProvider, ModalProvider } from "@/components/providers";
 
 const openSans = Open_Sans({ subsets: ["latin"] });
 

@@ -40,7 +40,7 @@ const formSchema = z.object({
     .url("Image URL must be a valid URL."),
 });
 
-export function CreateServerModal() {
+export default function CreateServerModal() {
   const { isOpen, type, closeModal } = useModalStore();
   const isModalOpen = isOpen && type === ModalType.CREATE_SERVER;
   const router = useRouter();
