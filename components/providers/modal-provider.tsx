@@ -6,6 +6,7 @@ import {
   CreateServerModal,
   InvitePeopleModal,
   EditServerModal,
+  ManageMembersModal,
 } from "@/components/modals";
 
 const ModalProvider = () => {
@@ -16,6 +17,7 @@ const ModalProvider = () => {
       <CreateServerModal />
       <InvitePeopleModal />
       <EditServerModal />
+      <ManageMembersModal />
     </>
   );
 };

@@ -11,7 +11,11 @@ datasource db {
 }
 
 model Profile {
-  id       String    @id
+  id     String @id
+  name   String
+  imgUrl String
+  email  String
+
   servers  Server[]
   Members  Member[]
   Channels Channel[]

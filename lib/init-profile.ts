@@ -19,6 +19,11 @@ export default async function initProfile() {
 
   // Create a new profile
   return prisma.profile.create({
-    data: { id },
+    data: {
+      id,
+      name: user.firstName + " " + user.lastName,
+      email: user.emailAddresses[0].emailAddress,
+      imgUrl: user.imageUrl,
+    },
   });
 }

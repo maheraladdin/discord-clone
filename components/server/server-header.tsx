@@ -67,7 +67,10 @@ export default function ServerHeader({ role, server }: ServerHeaderProps) {
               Server Settings
               <Settings className={"ml-auto h-4 w-4"} />
             </DropdownMenuItem>
-            <DropdownMenuItem className={"cursor-pointer px-3 py-2 text-sm"}>
+            <DropdownMenuItem
+              onClick={() => openModel(ModalType.MANAGE_MEMBERS, { server })}
+              className={"cursor-pointer px-3 py-2 text-sm"}
+            >
               Manage Members
               <Users className={"ml-auto h-4 w-4"} />
             </DropdownMenuItem>
