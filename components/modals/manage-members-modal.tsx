@@ -4,7 +4,6 @@ import qs from "query-string";
 import { useState } from "react";
 import {
   ShieldCheck,
-  ShieldAlert,
   MoreVertical,
   ShieldQuestion,
   Shield,
@@ -36,23 +35,9 @@ import { ServerWithMembersAndProfiles } from "@/types";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import MemberAvatar from "@/components/member-avater";
 import { MemberRole } from "@prisma/client";
-import ActionTooltip from "@/components/tooltips/action-tooltip";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-
-const roleIconMap = {
-  [MemberRole.GUEST]: null,
-  [MemberRole.MODERATOR]: (
-    <ActionTooltip label={"Moderator"} side={"right"} align={"end"}>
-      <ShieldCheck className={"ml-2 h-4 w-4 text-indigo-500"} />
-    </ActionTooltip>
-  ),
-  [MemberRole.ADMIN]: (
-    <ActionTooltip label={"Admin"} side={"right"} align={"end"}>
-      <ShieldAlert className={"ml-2 h-4 w-4 text-rose-500"} />
-    </ActionTooltip>
-  ),
-};
+import { roleIconMap } from "@/components/types";
 
 export default function ManageMembersModal() {
   const router = useRouter();
