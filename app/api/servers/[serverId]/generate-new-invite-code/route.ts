@@ -23,7 +23,7 @@ export async function PATCH(
 
     return NextResponse.json(server, { status: 200 });
   } catch (error) {
-    console.error("[SERVER_ID_GENERATE_NEW_INVITE_LINK_ERROR]:", error);
+    console.error("[SERVER_ID_GENERATE_NEW_INVITE_LINK_PATCH_ERROR]:", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

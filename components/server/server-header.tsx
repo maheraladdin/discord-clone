@@ -93,6 +93,7 @@ export default function ServerHeader({ role, server }: ServerHeaderProps) {
             className={
               "cursor-pointer px-3 py-2 text-sm text-rose-500 hover:text-rose-500"
             }
+            onClick={() => openModel(ModalType.DELETE_SERVER, { server })}
           >
             Delete Server
             <Trash className={"ml-auto h-4 w-4"} />

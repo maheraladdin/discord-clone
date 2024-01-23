@@ -15,17 +15,17 @@ import {
 import { ModalType, useModalStore } from "@/hooks/use-modal-store";
 import { Button } from "@/components/ui/button";
 
-export default function LeaveServerModal() {
+export default function DeleteServerModal() {
   const { isOpen, type, closeModal, data } = useModalStore();
   const router = useRouter();
-  const isModalOpen = isOpen && type === ModalType.LEAVE_SERVER;
+  const isModalOpen = isOpen && type === ModalType.DELETE_SERVER;
   const { server } = data;
   const { value, toggle } = useBoolean(false);
 
   const onConform = async () => {
     try {
       toggle();
-      await axios.patch(`/api/servers/${server?.id}/leave-server`);
+      await axios.delete(`/api/servers/${server?.id}`);
       closeModal();
       router.refresh();
       router.push("/");
@@ -42,11 +42,12 @@ export default function LeaveServerModal() {
       <DialogContent className={"overflow-hidden bg-white p-0 text-black"}>
         <DialogHeader className={"px-6 pt-8"}>
           <DialogTitle className={"text-center text-2xl font-bold"}>
-            Leave Server
+            Delete Server
           </DialogTitle>
           <DialogDescription className={"text-center text-zinc-500"}>
-            Are you sure you want to leave{" "}
+            Are you sure you want to delete{" "}
             <span className={"font-bold text-indigo-500"}>{server?.name}</span>?
+            server will be permanently deleted
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className={"bg-gray-100 px-6 py-4"}>
