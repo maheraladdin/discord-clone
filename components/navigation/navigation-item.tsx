@@ -44,13 +44,7 @@ export default function NavigationItem({
               "rounded-[16px] bg-primary/10 text-primary",
           )}
         >
-          <Image
-            src={imgUrl}
-            alt={`${name} server`}
-            fill
-            objectFit={"cover"}
-            sizes={"48px"}
-          />
+          <Image src={imgUrl} alt={`${name} server`} fill sizes={"48px"} />
         </div>
       </button>
     </ActionTooltip>

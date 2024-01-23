@@ -1,10 +1,9 @@
-import { NextResponse } from "next/server";
 import { currentUser } from "@clerk/nextjs";
+import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { v4 as uuidv4 } from "uuid";
 
 export async function PATCH(
-  _: Request,
+  req: Request,
   { params: { serverId } }: { params: { serverId: string } },
 ) {
   try {
@@ -15,15 +14,29 @@ export async function PATCH(
       return new NextResponse("Server ID is Missing", { status: 400 });
 
     const server = await prisma.server.update({
-      where: { id: serverId, profileId: user.id },
+      where: {
+        id: serverId,
+        profileId: {
+          not: user.id,
+        },
+        Members: {
+          some: {
+            profileId: user.id,
+          },
+        },
+      },
       data: {
-        inviteCode: uuidv4(),
+        Members: {
+          deleteMany: {
+            profileId: user.id,
+          },
+        },
       },
     });
 
     return NextResponse.json(server, { status: 200 });
   } catch (error) {
-    console.error("[SERVER_ID_GENERATE_NEW_INVITE_LINK_ERROR]:", error);
+    console.error("[SERVER_ID_LEAVE_SERVER_ERROR]:", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

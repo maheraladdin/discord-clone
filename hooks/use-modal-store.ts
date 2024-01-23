@@ -7,6 +7,8 @@ export enum ModalType {
   EDIT_SERVER,
   MANAGE_MEMBERS,
   CREATE_CHANNEL,
+  LEAVE_SERVER,
+  DELETE_SERVER,
 }
 
 type ModalData = {

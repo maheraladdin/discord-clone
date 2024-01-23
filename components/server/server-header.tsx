@@ -90,7 +90,9 @@ export default function ServerHeader({ role, server }: ServerHeaderProps) {
         )}
         {isAdmin && (
           <DropdownMenuItem
-            className={"cursor-pointer px-3 py-2 text-sm text-rose-500"}
+            className={
+              "cursor-pointer px-3 py-2 text-sm text-rose-500 hover:text-rose-500"
+            }
           >
             Delete Server
             <Trash className={"ml-auto h-4 w-4"} />
@@ -98,7 +100,10 @@ export default function ServerHeader({ role, server }: ServerHeaderProps) {
         )}
         {!isAdmin && (
           <DropdownMenuItem
-            className={"cursor-pointer px-3 py-2 text-sm text-rose-500"}
+            className={
+              "cursor-pointer px-3 py-2 text-sm text-rose-500 hover:text-rose-500"
+            }
+            onClick={() => openModel(ModalType.LEAVE_SERVER, { server })}
           >
             Leave Server
             <LogOut className={"ml-auto h-4 w-4"} />
