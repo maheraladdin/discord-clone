@@ -78,7 +78,10 @@ export default function ServerHeader({ role, server }: ServerHeaderProps) {
         )}
         {isModerator && (
           <>
-            <DropdownMenuItem className={"cursor-pointer px-3 py-2 text-sm"}>
+            <DropdownMenuItem
+              onClick={() => openModel(ModalType.CREATE_CHANNEL)}
+              className={"cursor-pointer px-3 py-2 text-sm"}
+            >
               Create Channel
               <PlusCircle className={"ml-auto h-4 w-4"} />
             </DropdownMenuItem>
