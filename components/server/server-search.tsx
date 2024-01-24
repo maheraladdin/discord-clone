@@ -1,8 +1,19 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Search } from "lucide-react";
 import { SearchTypes } from "@/components/types";
+import { usePlatform } from "react-use-platform";
+import {
+  CommandDialog,
+  CommandInput,
+  CommandList,
+  CommandEmpty,
+  CommandItem,
+  CommandGroup,
+} from "@/components/ui/command";
+import { useEventListener } from "usehooks-ts";
+import { useParams, useRouter } from "next/navigation";
 
 type ServerSearchProps = {
   data: {
@@ -16,9 +27,38 @@ type ServerSearchProps = {
   }[];
 };
 export default function ServerSearch({ data }: ServerSearchProps) {
+  const platform = usePlatform();
+  const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+  const params = useParams();
+
+  const searchOnKeyDown = (e: KeyboardEvent) => {
+    if (e.key === "Escape") {
+      setIsOpen(false);
+    }
+    if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+      setIsOpen((open) => !open);
+    }
+  };
+
+  useEventListener("keydown", searchOnKeyDown);
+
+  const onSelectCommandItem = (id: string, type: SearchTypes) => {
+    setIsOpen(false);
+    switch (type) {
+      case SearchTypes.CHANNEL:
+        router.push(`/server/${params.serverId}/channel/${id}`);
+        break;
+      case SearchTypes.MEMBER:
+        router.push(`/server/${params.serverId}/conversation/${id}`);
+        break;
+    }
+  };
+
   return (
     <>
       <button
+        onClick={() => setIsOpen(true)}
         className={
           "group flex w-full items-center gap-x-2 rounded-md p-2 transition-all hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50"
         }
@@ -31,10 +71,43 @@ export default function ServerSearch({ data }: ServerSearchProps) {
         >
           Search
         </p>
-        <kbd>
-          <span>CMD</span>K
-        </kbd>
+        {(platform === "mac" || platform === "windows") && (
+          <kbd
+            className={
+              "pointer-events-none ml-auto inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground"
+            }
+          >
+            <span className={"text-xs"}>
+              {platform === "mac" ? "⌘" : "CTRL + "}
+            </span>
+            K
+          </kbd>
+        )}
       </button>
+      <CommandDialog open={isOpen} onOpenChange={setIsOpen}>
+        <CommandInput
+          autoFocus
+          placeholder={"Search all channels and members"}
+        />
+        <CommandList>
+          <CommandEmpty>No Result Found</CommandEmpty>
+          {data.map(({ label, type, data }) =>
+            data?.length ? (
+              <CommandGroup key={label} heading={label}>
+                {data?.map(({ icon, id, name }) => (
+                  <CommandItem
+                    key={id}
+                    onSelect={() => onSelectCommandItem(id, type)}
+                  >
+                    {icon}
+                    <span>{name}</span>
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            ) : null,
+          )}
+        </CommandList>
+      </CommandDialog>
     </>
   );
 }
