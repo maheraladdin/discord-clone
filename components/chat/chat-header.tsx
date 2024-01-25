@@ -3,6 +3,7 @@ import { ChannelType } from "@prisma/client";
 
 import { MobileToggle } from "@/components/mobile-toggle";
 import { iconMapLucidIcons, ServerSideBarTypes } from "@/components/types";
+import MemberAvatar from "@/components/member-avater";
 
 type ChannelIdPageProps = {
   serverId: string;
@@ -33,6 +34,13 @@ export default function ChatHeader({
       <MobileToggle serverId={serverId} />
       {isChannelType.success && Icon ? (
         <Icon className={"mr-2 h-5 w-5 text-zinc-500 dark:text-zinc-400"} />
+      ) : null}
+      {type === ServerSideBarTypes.MEMBER && imgUrl ? (
+        <MemberAvatar
+          src={imgUrl}
+          alt={name}
+          className={"mr-2 h-8 w-8 md:h-8 md:w-8"}
+        />
       ) : null}
       <p className={"text-md font-semibold text-black dark:text-white"}>
         {name}
