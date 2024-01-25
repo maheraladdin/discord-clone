@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Search } from "lucide-react";
-import { SearchTypes } from "@/components/types";
+import { ServerSideBarTypes } from "@/components/types";
 import { usePlatform } from "react-use-platform";
 import {
   CommandDialog,
@@ -18,7 +18,7 @@ import { useParams, useRouter } from "next/navigation";
 type ServerSearchProps = {
   data: {
     label: string;
-    type: SearchTypes;
+    type: ServerSideBarTypes;
     data?: {
       icon: React.ReactNode;
       name: string;
@@ -43,13 +43,13 @@ export default function ServerSearch({ data }: ServerSearchProps) {
 
   useEventListener("keydown", searchOnKeyDown);
 
-  const onSelectCommandItem = (id: string, type: SearchTypes) => {
+  const onSelectCommandItem = (id: string, type: ServerSideBarTypes) => {
     setIsOpen(false);
     switch (type) {
-      case SearchTypes.CHANNEL:
+      case ServerSideBarTypes.CHANNEL:
         router.push(`/server/${params.serverId}/channel/${id}`);
         break;
-      case SearchTypes.MEMBER:
+      case ServerSideBarTypes.MEMBER:
         router.push(`/server/${params.serverId}/conversation/${id}`);
         break;
     }
