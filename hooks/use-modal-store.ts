@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
-import { ChannelType, Server } from "@prisma/client";
+import { Channel, ChannelType, Server } from "@prisma/client";
 
 export enum ModalType {
   CREATE_SERVER,
@@ -10,10 +10,13 @@ export enum ModalType {
   CREATE_CHANNEL,
   LEAVE_SERVER,
   DELETE_SERVER,
+  DELETE_CHANNEL,
+  EDIT_CHANNEL,
 }
 
 type ModalData = {
   server?: Server;
+  channel?: Channel;
   channelType?: ChannelType;
 };
 

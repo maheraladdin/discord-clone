@@ -6,6 +6,7 @@ import { Channel, Server, MemberRole } from "@prisma/client";
 import { cn } from "@/lib/utils";
 import { ActionTooltip } from "@/components/tooltips";
 import { iconMapLucidIcons } from "@/components/types";
+import { ModalType, useModalStore } from "@/hooks/use-modal-store";
 
 type ServerChannelProps = {
   channel: Channel;
@@ -18,6 +19,7 @@ export default function ServerChannel({
   server,
   role,
 }: ServerChannelProps) {
+  const openModal = useModalStore((state) => state.openModal);
   const router = useRouter();
   const params = useParams();
 
@@ -45,6 +47,9 @@ export default function ServerChannel({
         <div className={"ml-auto flex items-center gap-x-2"}>
           <ActionTooltip label={"Edit Channel"}>
             <Edit
+              onClick={() =>
+                openModal(ModalType.EDIT_CHANNEL, { channel, server })
+              }
               className={
                 "hidden h-4 w-4 text-zinc-500 transition hover:text-zinc-600 group-hover:block dark:text-zinc-400 dark:hover:text-zinc-300"
               }
@@ -52,6 +57,9 @@ export default function ServerChannel({
           </ActionTooltip>
           <ActionTooltip label={"Delete Channel"}>
             <Trash
+              onClick={() =>
+                openModal(ModalType.DELETE_CHANNEL, { channel, server })
+              }
               className={
                 "hidden h-4 w-4 text-zinc-500 transition hover:text-zinc-600 group-hover:block dark:text-zinc-400 dark:hover:text-zinc-300"
               }

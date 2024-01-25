@@ -6,3 +6,5 @@ export { default as ManageMembersModal } from "./manage-members-modal";
 export { default as CreateChannelModal } from "./create-channel-modal";
 export { default as LeaveServerModal } from "./leave-server-modal";
 export { default as DeleteServerModal } from "./delete-server-modal";
+export { default as DeleteChannelModal } from "./delete-channel-modal";
+export { default as EditChannelModal } from "./edit-channel-modal";
