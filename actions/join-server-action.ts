@@ -9,7 +9,7 @@ export const joinServerAction = async (inviteCode: string, userId: string) => {
       inviteCode,
     },
     data: {
-      Members: {
+      members: {
         create: [
           {
             profileId: userId,

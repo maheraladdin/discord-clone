@@ -22,7 +22,7 @@ export async function DELETE(
     const server = await prisma.server.update({
       where: {
         id: serverId,
-        Members: {
+        members: {
           some: {
             profileId: user.id,
             role: {
@@ -32,7 +32,7 @@ export async function DELETE(
         },
       },
       data: {
-        Channels: {
+        channels: {
           deleteMany: {
             id: channelId,
             name: {
@@ -77,7 +77,7 @@ export async function PATCH(
     const server = await prisma.server.update({
       where: {
         id: serverId,
-        Members: {
+        members: {
           some: {
             profileId: user.id,
             role: {
@@ -87,7 +87,7 @@ export async function PATCH(
         },
       },
       data: {
-        Channels: {
+        channels: {
           update: {
             where: {
               id: channelId,

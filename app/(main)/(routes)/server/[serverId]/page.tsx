@@ -12,14 +12,14 @@ export default async function ServerIdPage({
   const server = await prisma.server.findUnique({
     where: {
       id: serverId,
-      Members: {
+      members: {
         some: {
           profileId: user.id,
         },
       },
     },
     include: {
-      Channels: {
+      channels: {
         where: {
           name: "general",
         },
@@ -30,7 +30,7 @@ export default async function ServerIdPage({
     },
   });
 
-  const initialChannel = server?.Channels[0];
+  const initialChannel = server?.channels[0];
 
   if (initialChannel?.name !== "general") {
     return null;

@@ -36,7 +36,7 @@ export async function POST(req: Request) {
     const server = await prisma.server.update({
       where: {
         id: serverId,
-        Members: {
+        members: {
           some: {
             profileId: user.id,
             role: {
@@ -46,7 +46,7 @@ export async function POST(req: Request) {
         },
       },
       data: {
-        Channels: {
+        channels: {
           create: {
             profileId: user.id,
             name,

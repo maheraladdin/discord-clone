@@ -7,7 +7,7 @@ export default async function SetupPage() {
   const profile = await initProfile();
   const server = await prisma.server.findFirst({
     where: {
-      Members: {
+      members: {
         some: {
           profileId: profile.id,
         },

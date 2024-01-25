@@ -25,19 +25,19 @@ export default async function ServerSidebar({ serverId }: ServerSidebarProps) {
   const server = await prisma.server.findUnique({
     where: {
       id: serverId,
-      Members: {
+      members: {
         some: {
           profileId: user.id,
         },
       },
     },
     include: {
-      Channels: {
+      channels: {
         orderBy: {
           createdAt: "asc",
         },
       },
-      Members: {
+      members: {
         include: {
           profile: true,
         },
@@ -50,22 +50,22 @@ export default async function ServerSidebar({ serverId }: ServerSidebarProps) {
   if (!server) return redirect("/");
 
   const channels = {
-    text: server.Channels.filter(
+    text: server.channels.filter(
       (channel) => channel.type === ChannelType.TEXT,
     ),
-    audio: server.Channels.filter(
+    audio: server.channels.filter(
       (channel) => channel.type === ChannelType.AUDIO,
     ),
-    video: server.Channels.filter(
+    video: server.channels.filter(
       (channel) => channel.type === ChannelType.VIDEO,
     ),
   };
 
-  const members = server.Members.filter(
+  const members = server.members.filter(
     (member) => member.profileId !== user.id,
   );
 
-  const userRole = server.Members.find(
+  const userRole = server.members.find(
     (member) => member.profileId === user.id,
   )?.role;
 

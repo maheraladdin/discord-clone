@@ -81,7 +81,10 @@ export default function InitModal() {
       onOpenChange={() => setIsOpened(true)}
       modal={false}
     >
-      <DialogContent className={"overflow-hidden bg-white p-0 text-black"}>
+      <DialogContent
+        hideCloseButton={true}
+        className={"overflow-hidden bg-white p-0 text-black"}
+      >
         <DialogHeader className={"px-6 pt-8"}>
           <DialogTitle className={"text-center text-2xl font-bold"}>
             Customize your server

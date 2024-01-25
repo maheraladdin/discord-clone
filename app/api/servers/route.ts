@@ -16,10 +16,10 @@ export async function POST(req: Request) {
         profileId: user.id,
         name,
         imgUrl,
-        Channels: {
+        channels: {
           create: [{ name: "general", profileId: user.id }],
         },
-        Members: {
+        members: {
           create: [{ profileId: user.id, role: MemberRole.ADMIN }],
         },
       },

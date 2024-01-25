@@ -25,7 +25,7 @@ export default async function InviteCodePage({
   const isExistInServer = await prisma.server.findFirst({
     where: {
       inviteCode,
-      Members: {
+      members: {
         some: {
           profileId: user.id,
         },

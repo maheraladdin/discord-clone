@@ -19,14 +19,14 @@ export async function PATCH(
         profileId: {
           not: user.id,
         },
-        Members: {
+        members: {
           some: {
             profileId: user.id,
           },
         },
       },
       data: {
-        Members: {
+        members: {
           deleteMany: {
             profileId: user.id,
           },

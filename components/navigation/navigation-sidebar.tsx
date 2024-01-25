@@ -14,7 +14,7 @@ export default async function NavigationSidebar() {
 
   // get all servers where the user is a member
   const servers = await prisma.server.findMany({
-    where: { Members: { some: { profileId: id } } },
+    where: { members: { some: { profileId: id } } },
   });
 
   return (

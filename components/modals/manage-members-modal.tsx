@@ -89,11 +89,11 @@ export default function ManageMembersModal() {
             Manage Members
           </DialogTitle>
           <DialogDescription className={"text-center text-zinc-500"}>
-            {server?.Members?.length} Members
+            {server?.members?.length} Members
           </DialogDescription>
         </DialogHeader>
         <ScrollArea className={"mt-8 max-h-[420px] pr-6"}>
-          {server?.Members?.map((member) => (
+          {server?.members?.map((member) => (
             <div key={member.id} className={"mb-6 flex items-center gap-x-2"}>
               <MemberAvatar
                 src={member.profile.imgUrl}

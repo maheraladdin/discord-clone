@@ -17,8 +17,8 @@ model Profile {
   email  String
 
   servers  Server[]
-  Members  Member[]
-  Channels Channel[]
+  members  Member[]
+  channels Channel[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -32,8 +32,8 @@ model Server {
 
   profileId String
   profile   Profile   @relation(fields: [profileId], references: [id], onDelete: Cascade)
-  Members   Member[]
-  Channels  Channel[]
+  members   Member[]
+  channels  Channel[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -56,6 +56,13 @@ model Member {
 
   serverId String
   server   Server @relation(fields: [serverId], references: [id], onDelete: Cascade)
+
+  messages Message[]
+
+  conversationsInitiatedBy Conversation[] @relation("MemberOne")
+  conversationsRecievedBy  Conversation[] @relation("MemberTwo")
+
+  directMessages DirectMessage[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -81,9 +88,66 @@ model Channel {
   serverId String
   server   Server @relation(fields: [serverId], references: [id], onDelete: Cascade)
 
+  messages Message[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([serverId])
   @@index([profileId])
+}
+
+model Message {
+  id      String  @id @default(uuid())
+  content String
+  fileUrl String?
+
+  memberId String
+  member   Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  channelId String
+  channel   Channel @relation(fields: [channelId], references: [id], onDelete: Cascade)
+
+  deleted Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([memberId])
+  @@index([channelId])
+}
+
+model Conversation {
+  id String @id @default(uuid())
+
+  memberOneId String
+  memberOne   Member @relation("MemberOne", fields: [memberOneId], references: [id], onDelete: Cascade)
+
+  memberTwoId String
+  memberTwo   Member @relation("MemberTwo", fields: [memberTwoId], references: [id], onDelete: Cascade)
+
+  directMessages DirectMessage[]
+
+  @@unique([memberOneId, memberTwoId])
+  @@index([memberTwoId])
+}
+
+model DirectMessage {
+  id      String  @id @default(uuid())
+  content String
+  fileUrl String?
+
+  memberId String
+  member   Member @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  deleted Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([memberId])
+  @@index([conversationId])
 }
