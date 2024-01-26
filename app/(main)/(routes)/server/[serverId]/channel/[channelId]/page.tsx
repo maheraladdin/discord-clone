@@ -38,7 +38,7 @@ export default async function ChannelIdPage({
       <ChatHeader name={channel.name} type={channel.type} serverId={serverId} />
       <div className="flex-1">Future Messages </div>
       <ChatInput
-        apiURL={`/api/socket/messages`}
+        apiUrl={`/api/socket/messages`}
         query={{
           serverId,
           channelId,

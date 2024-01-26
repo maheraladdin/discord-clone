@@ -3,15 +3,16 @@ import { z } from "zod";
 import axios from "axios";
 import qs from "query-string";
 import { useForm } from "react-hook-form";
+import { Plus, Smile } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { ServerSideBarTypes } from "@/components/types";
-import { Plus, Smile } from "lucide-react";
+import { ModalType, useModalStore } from "@/hooks/use-modal-store";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 
 type ChatInputProps = {
-  apiURL: string;
+  apiUrl: string;
   query: Record<string, any>;
   name: string;
   type: ServerSideBarTypes;
@@ -22,11 +23,12 @@ const formSchema = z.object({
 });
 
 export default function ChatInput({
-  apiURL,
+  apiUrl,
   query,
   name,
   type,
 }: ChatInputProps) {
+  const openModal = useModalStore((state) => state.openModal);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -44,7 +46,7 @@ export default function ChatInput({
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const url = qs.stringifyUrl({
-        url: apiURL,
+        url: apiUrl,
         query,
       });
       await axios.post(url, values, {
@@ -54,6 +56,10 @@ export default function ChatInput({
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const onADDFile = () => {
+    openModal(ModalType.MESSAGE_FILE, { apiUrl, query });
   };
 
   return (
@@ -72,6 +78,7 @@ export default function ChatInput({
                         "absolute left-8 top-7 flex h-6 w-6 items-center justify-center rounded-full bg-zinc-500 transition-all hover:bg-zinc-600 dark:bg-zinc-400 dark:hover:bg-zinc-300"
                       }
                       disabled={isSubmitting}
+                      onClick={onADDFile}
                     >
                       <Plus
                         className={"h-4 w-4 text-white dark:text-[#313338]"}
