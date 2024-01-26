@@ -1,3 +1,4 @@
+"use client";
 import { Member } from "@prisma/client";
 import { Loader2 } from "lucide-react";
 
