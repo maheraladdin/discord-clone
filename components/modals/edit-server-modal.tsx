@@ -155,7 +155,7 @@ export default function EditServerModal() {
                 variant={"primary"}
                 type={"submit"}
                 disabled={isSubmitting}
-                className={"w-full lg:w-auto"}
+                className={"w-full md:w-auto"}
               >
                 Save
               </Button>

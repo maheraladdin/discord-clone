@@ -54,7 +54,7 @@ export default function CreateChannelModal() {
   const isModalOpen = isOpen && type === ModalType.CREATE_CHANNEL;
   const router = useRouter();
   const params = useParams();
-  const { serverId } = params;
+  const serverId = params?.serverId;
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -180,7 +180,7 @@ export default function CreateChannelModal() {
                 variant={"primary"}
                 type={"submit"}
                 disabled={isSubmitting}
-                className={"w-full"}
+                className={"w-full md:w-auto"}
               >
                 Create
               </Button>

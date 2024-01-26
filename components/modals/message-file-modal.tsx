@@ -118,7 +118,7 @@ export default function MessageFileModal() {
                 variant={"primary"}
                 type={"submit"}
                 disabled={isSubmitting}
-                className={"w-full"}
+                className={"w-full md:w-auto"}
               >
                 Send
               </Button>

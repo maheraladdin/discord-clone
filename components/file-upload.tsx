@@ -1,6 +1,6 @@
 "use client";
 
-import { X } from "lucide-react";
+import { FileIcon, X } from "lucide-react";
 import Image from "next/image";
 import { v4 as uuidv4 } from "uuid";
 
@@ -22,6 +22,7 @@ export const FileUpload = ({
   alt,
 }: FileUploadProps) => {
   const isImage = value && /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i.test(value);
+  const isPdf = value && /\.(pdf)$/i.test(value);
 
   const deleteValue = async () => {
     await axios.delete("/api/uploadthing", {
@@ -48,6 +49,39 @@ export const FileUpload = ({
           }}
           className={
             "absolute right-0 top-0 rounded-full bg-rose-500 p-1 text-white shadow-sm"
+          }
+          type={"button"}
+        >
+          <X className={"h-4 w-4"} />
+        </button>
+      </div>
+    );
+
+  if (isPdf)
+    return (
+      <div
+        className={
+          "relative mt-2 flex items-center rounded-md bg-background/10 p-2"
+        }
+      >
+        <FileIcon className={"h-10 w-10 fill-indigo-200 stroke-indigo-400"} />
+        <a
+          href={value}
+          target={"_blank"}
+          rel={"noopener noreferrer"}
+          className={
+            "darK:text-indigo-400 ml-2 text-sm font-medium text-indigo-500 hover:underline"
+          }
+        >
+          {value}
+        </a>
+        <button
+          onClick={async () => {
+            await deleteValue();
+            onChange("");
+          }}
+          className={
+            "absolute -right-2 -top-2 rounded-full bg-rose-500 p-1 text-white shadow-sm"
           }
           type={"button"}
         >

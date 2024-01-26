@@ -178,7 +178,7 @@ export default function EditChannelModal() {
                 variant={"primary"}
                 type={"submit"}
                 disabled={isSubmitting}
-                className={"w-full"}
+                className={"w-full md:w-auto"}
               >
                 Save
               </Button>

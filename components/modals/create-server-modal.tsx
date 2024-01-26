@@ -144,7 +144,7 @@ export default function CreateServerModal() {
                 variant={"primary"}
                 type={"submit"}
                 disabled={isSubmitting}
-                className={"w-full"}
+                className={"w-full md:w-auto"}
               >
                 Create
               </Button>
