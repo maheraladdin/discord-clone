@@ -1,4 +1,5 @@
 import "./globals.css";
+import "react-h5-audio-player/lib/styles.css";
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";

@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { ServerSideBarTypes } from "@/components/types";
 import { ModalType, useModalStore } from "@/hooks/use-modal-store";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import { EmojiPicker } from "@/components/emoji-picker";
 
 type ChatInputProps = {
   apiUrl: string;
@@ -92,13 +93,22 @@ export default function ChatInput({
                       placeholder={`Message ${type === ServerSideBarTypes.MEMBER ? name : `#${name}`}`}
                       {...field}
                     />
-                    <button type={"button"} className="absolute right-8 top-7">
-                      <Smile
-                        className={
-                          "text-zinc-500 transition-all hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300"
-                        }
-                      />
-                    </button>
+                    <EmojiPicker
+                      onChange={(emoji) => {
+                        field.onChange(field.value + emoji);
+                      }}
+                      className={{
+                        trigger: "absolute right-8 top-7",
+                      }}
+                    >
+                      <button type={"button"}>
+                        <Smile
+                          className={
+                            "text-zinc-500 transition-all hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300"
+                          }
+                        />
+                      </button>
+                    </EmojiPicker>
                   </div>
                 </FormControl>
               </FormItem>

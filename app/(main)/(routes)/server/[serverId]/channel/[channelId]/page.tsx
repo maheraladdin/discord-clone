@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { currentUser, redirectToSignIn } from "@clerk/nextjs";
 
 import { ServerSideBarTypes } from "@/components/types";
-import { ChatHeader, ChatInput } from "@/components/chat";
+import { ChatHeader, ChatInput, ChatMessages } from "@/components/chat";
 
 type ChannelIdPageProps = {
   params: {
@@ -36,7 +36,7 @@ export default async function ChannelIdPage({
   return (
     <div className={"flex h-full flex-col bg-white dark:bg-[#313338]"}>
       <ChatHeader name={channel.name} type={channel.type} serverId={serverId} />
-      <div className="flex-1">Future Messages </div>
+      <ChatMessages />
       <ChatInput
         apiUrl={`/api/socket/messages`}
         query={{

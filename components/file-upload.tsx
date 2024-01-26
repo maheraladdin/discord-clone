@@ -1,8 +1,9 @@
 "use client";
 
-import { FileIcon, X } from "lucide-react";
 import Image from "next/image";
 import { v4 as uuidv4 } from "uuid";
+import { FileIcon, X } from "lucide-react";
+import AudioPlayer from "react-h5-audio-player";
 
 import { UploadDropzone } from "@/lib/uploadthing";
 import type { OurFileRouter } from "@/app/api/uploadthing/core";
@@ -23,6 +24,7 @@ export const FileUpload = ({
 }: FileUploadProps) => {
   const isImage = value && /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i.test(value);
   const isPdf = value && /\.(pdf)$/i.test(value);
+  const isAudio = value && /\.(mp3|wav)$/i.test(value);
 
   const deleteValue = async () => {
     await axios.delete("/api/uploadthing", {
@@ -90,6 +92,29 @@ export const FileUpload = ({
       </div>
     );
 
+  if (isAudio)
+    return (
+      <div
+        className={
+          "relative mt-2 flex items-center rounded-md bg-background/10 p-2"
+        }
+      >
+        <AudioPlayer src={value} />
+        <button
+          onClick={async () => {
+            await deleteValue();
+            onChange("");
+          }}
+          className={
+            "absolute -right-2 -top-2 rounded-full bg-rose-500 p-1 text-white shadow-sm"
+          }
+          type={"button"}
+        >
+          <X className={"h-4 w-4"} />
+        </button>
+      </div>
+    );
+
   return (
     <UploadDropzone
       endpoint={endpoint}
@@ -97,13 +122,9 @@ export const FileUpload = ({
         // change the file name to something unique ,for deleting purposes
         return files.map(
           (f) =>
-            new File(
-              [f],
-              `${f.name.replace(/\s/g, "_")}-${uuidv4()}.${f.type.split("/")[1]}`,
-              {
-                type: f.type,
-              },
-            ),
+            new File([f], `${uuidv4()}-${f.name.replace(/\s/g, "_")}`, {
+              type: f.type,
+            }),
         );
       }}
       onClientUploadComplete={(res) => onChange(res?.[0].url)}
