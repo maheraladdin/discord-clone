@@ -1,9 +1,10 @@
 import { z } from "zod";
 import { ChannelType } from "@prisma/client";
 
-import { MobileToggle } from "@/components/mobile-toggle";
-import { iconMapLucidIcons, ServerSideBarTypes } from "@/components/types";
 import MemberAvatar from "@/components/member-avater";
+import { MobileToggle } from "@/components/mobile-toggle";
+import { SocketIndicator } from "@/components/socket-indicator";
+import { iconMapLucidIcons, ServerSideBarTypes } from "@/components/types";
 
 type ChannelIdPageProps = {
   serverId: string;
@@ -45,6 +46,9 @@ export default function ChatHeader({
       <p className={"text-md font-semibold text-black dark:text-white"}>
         {name}
       </p>
+      <div className="ml-auto">
+        <SocketIndicator />
+      </div>
     </div>
   );
 }
