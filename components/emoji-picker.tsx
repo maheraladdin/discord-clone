@@ -10,6 +10,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import { useIsClient } from "usehooks-ts";
 
 type EmojiPickerProps = {
   children: React.ReactNode;
@@ -26,6 +27,10 @@ export function EmojiPicker({
   className,
 }: EmojiPickerProps) {
   const { resolvedTheme } = useTheme();
+  const isClient = useIsClient();
+
+  if (!isClient) return null;
+
   return (
     <Popover>
       <PopoverTrigger className={className?.trigger}>{children}</PopoverTrigger>

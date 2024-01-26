@@ -10,6 +10,7 @@ import {
   ThemeProvider,
   ModalProvider,
   SocketProvider,
+  QueryProvider,
 } from "@/components/providers";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
@@ -52,7 +53,7 @@ export default function RootLayout({
           >
             <SocketProvider>
               <ModalProvider />
-              {children}
+              <QueryProvider>{children}</QueryProvider>
             </SocketProvider>
           </ThemeProvider>
         </body>
