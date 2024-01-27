@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { ChannelType } from "@prisma/client";
 
-import MemberAvatar from "@/components/member-avater";
+import MemberAvatar from "@/components/member-avatar";
 import { MobileToggle } from "@/components/mobile-toggle";
 import { SocketIndicator } from "@/components/socket-indicator";
 import { iconMapLucidIcons, ServerSideBarTypes } from "@/components/types";

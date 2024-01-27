@@ -33,7 +33,7 @@ import {
 import { ModalType, useModalStore } from "@/hooks/use-modal-store";
 import { ServerWithMembersAndProfiles } from "@/types";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import MemberAvatar from "@/components/member-avater";
+import MemberAvatar from "@/components/member-avatar";
 import { MemberRole } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/navigation";

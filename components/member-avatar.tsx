@@ -15,7 +15,7 @@ export default function MemberAvatar({
   return (
     <Avatar className={cn("h-7 w-7 md:h-10 md:w-10", className)}>
       <AvatarImage
-        src={src}
+        src={src || "public/Portrait_Placeholder.png"}
         alt={alt}
         sizes={"28px, (min-width: 768px) 40px"}
       />

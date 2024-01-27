@@ -22,9 +22,9 @@ export const FileUpload = ({
   onChange,
   alt,
 }: FileUploadProps) => {
-  const isImage = value && /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i.test(value);
   const isPdf = value && /\.(pdf)$/i.test(value);
   const isAudio = value && /\.(mp3|wav)$/i.test(value);
+  const isImage = value && /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i.test(value);
 
   const deleteValue = async () => {
     await axios.delete("/api/uploadthing", {

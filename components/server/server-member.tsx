@@ -4,7 +4,7 @@ import { Member, Profile, Server } from "@prisma/client";
 
 import { cn } from "@/lib/utils";
 import { roleIconMap } from "@/components/types";
-import MemberAvatar from "@/components/member-avater";
+import MemberAvatar from "@/components/member-avatar";
 
 type ServerMemberProps = {
   member: Member & { profile: Profile };
