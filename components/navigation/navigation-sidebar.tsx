@@ -1,11 +1,12 @@
 import prisma from "@/lib/prisma";
 import { redirect } from "next/navigation";
-import { currentUser, UserButton } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs";
 
 import { Separator } from "@/components/ui/separator";
 import { ModeToggle } from "@/components/mode-toggle";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { NavigationItem, NavigationAction } from "@/components/navigation";
+import ClerkUser from "@/components/clerk-user";
 
 export default async function NavigationSidebar() {
   const user = await currentUser();
@@ -39,14 +40,7 @@ export default async function NavigationSidebar() {
       </ScrollArea>
       <div className={"mt-auto flex flex-col items-center gap-y-4 pb-3"}>
         <ModeToggle />
-        <UserButton
-          afterSignOutUrl={"/"}
-          appearance={{
-            elements: {
-              avatarBox: "h-[48px] w-[48px]",
-            },
-          }}
-        />
+        <ClerkUser />
       </div>
     </div>
   );
