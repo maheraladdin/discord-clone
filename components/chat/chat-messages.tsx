@@ -1,8 +1,10 @@
 "use client";
+import { Fragment, useId } from "react";
 import { Member } from "@prisma/client";
-import { Loader2 } from "lucide-react";
+import { Loader2, ServerCrash } from "lucide-react";
 
 import { ChatWelcome } from "@/components/chat";
+import { MessageWithMemberAndProfile } from "@/types";
 import { useChatQuery } from "@/hooks/use-chat-query";
 
 type ChatMessagesProps = {
@@ -43,6 +45,8 @@ export default function ChatMessages({
     paramValue,
   });
 
+  const uniqueId = useId();
+
   if (isLoading) {
     return (
       <div className={"flex flex-1 flex-col items-center justify-center"}>
@@ -53,10 +57,31 @@ export default function ChatMessages({
       </div>
     );
   }
+
+  if (status === "error") {
+    return (
+      <div className={"flex flex-1 flex-col items-center justify-center"}>
+        <ServerCrash className={"my-4 h-7 w-7 text-zinc-500"} />
+        <p className={"text-xs text-zinc-500 dark:text-zinc-400"}>
+          Something went wrong.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className={"flex flex-1 flex-col overflow-y-auto py-4"}>
       <div className="flex-1" />
       <ChatWelcome type={type} name={name} />
+      <div className="mt-auto flex flex-col-reverse">
+        {data?.pages?.map((group, i) => (
+          <Fragment key={`${i}-${uniqueId}`}>
+            {group.items.map((msg: MessageWithMemberAndProfile) => (
+              <div key={msg.id}>{msg.content}</div>
+            ))}
+          </Fragment>
+        ))}
+      </div>
     </div>
   );
 }
