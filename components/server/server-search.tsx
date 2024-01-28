@@ -47,10 +47,10 @@ export default function ServerSearch({ data }: ServerSearchProps) {
     setIsOpen(false);
     switch (type) {
       case ServerSideBarTypes.CHANNEL:
-        router.push(`/server/${params.serverId}/channel/${id}`);
+        router.push(`/server/${params?.serverId}/channel/${id}`);
         break;
       case ServerSideBarTypes.MEMBER:
-        router.push(`/server/${params.serverId}/conversation/${id}`);
+        router.push(`/server/${params?.serverId}/conversation/${id}`);
         break;
     }
   };

@@ -20,7 +20,10 @@ type ChatInputProps = {
 };
 
 const formSchema = z.object({
-  content: z.string().min(1).max(2000),
+  content: z
+    .string()
+    .min(1)
+    .max(2000, "Message can't be longer than 2000 characters"),
 });
 
 export default function ChatInput({

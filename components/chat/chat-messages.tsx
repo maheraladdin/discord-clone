@@ -89,7 +89,7 @@ export default function ChatMessages({
                 fileUrl={msg.fileUrl}
                 socketUrl={socketUri}
                 socketQuery={socketQuery}
-                currentMember={msg.member}
+                currentMember={member}
                 isEdited={msg.createdAt !== msg.updatedAt}
                 timestamp={format(new Date(msg.createdAt), DATE_FORMAT)}
               />
