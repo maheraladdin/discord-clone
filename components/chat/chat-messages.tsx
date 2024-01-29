@@ -7,6 +7,7 @@ import { format } from "date-fns";
 import { MessageWithMemberAndProfile } from "@/types";
 import { useChatQuery } from "@/hooks/use-chat-query";
 import { ChatItem, ChatWelcome } from "@/components/chat";
+import { useChatSocket } from "@/hooks/use-chat-hook";
 
 type ChatMessagesProps = {
   name: string;
@@ -34,6 +35,8 @@ export default function ChatMessages({
   type,
 }: ChatMessagesProps) {
   const queryKey = `chat:${chatId}`;
+  const addKey = `chat:${chatId}:messages`;
+  const updateKey = `chat:${chatId}:messages:update`;
   const {
     data,
     fetchNextPage,
@@ -47,6 +50,8 @@ export default function ChatMessages({
     paramKey,
     paramValue,
   });
+
+  useChatSocket({ queryKey, addKey, updateKey });
 
   const uniqueId = useId();
 
