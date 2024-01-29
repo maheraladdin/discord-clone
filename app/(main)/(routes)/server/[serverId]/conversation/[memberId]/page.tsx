@@ -41,7 +41,7 @@ export default async function MemberIdPage({
   const { memberOne, memberTwo } = conversation;
 
   // the person who will receive the message
-  const otherMember = memberOne.id === user.id ? memberTwo : memberOne;
+  const otherMember = memberOne.id === user.id ? memberOne : memberTwo;
 
   return (
     <div className={"flex h-full flex-col bg-white dark:bg-[#313338]"}>
