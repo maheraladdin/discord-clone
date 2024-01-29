@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 
 import prisma from "@/lib/prisma";
 import { getOrCreateConversation } from "@/lib/conversation";
-import { ChatHeader } from "@/components/chat";
+import { ChatHeader, ChatInput, ChatMessages } from "@/components/chat";
 import { ServerSideBarTypes } from "@/components/types";
 
 type MemberIdPageProps = {
@@ -49,6 +49,27 @@ export default async function MemberIdPage({
         name={otherMember.profile.name}
         imgUrl={otherMember.profile.imgUrl}
         serverId={serverId}
+        type={ServerSideBarTypes.MEMBER}
+      />
+      <ChatMessages
+        member={currentMember}
+        name={otherMember.profile.name}
+        type={"conversation"}
+        apiUrl={"/api/direct-messages"}
+        socketUri={"/api/socket/direct-messages"}
+        socketQuery={{
+          conversationId: conversation.id,
+        }}
+        chatId={conversation.id}
+        paramKey={"conversationId"}
+        paramValue={conversation.id}
+      />
+      <ChatInput
+        apiUrl={`/api/socket/direct-messages`}
+        query={{
+          conversationId: conversation.id,
+        }}
+        name={otherMember.profile.name}
         type={ServerSideBarTypes.MEMBER}
       />
     </div>
