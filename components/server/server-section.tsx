@@ -6,7 +6,7 @@ import { ChannelType, MemberRole } from "@prisma/client";
 import { ActionTooltip } from "@/components/tooltips";
 import { ServerWithMembersAndProfiles } from "@/types";
 import { ServerSideBarTypes } from "@/components/types";
-import { ModalType, useModalStore } from "@/hooks/use-modal-store";
+import { ModalType, useModal } from "@/hooks/use-modal";
 
 type ServerSectionProps = {
   label: string;
@@ -23,7 +23,8 @@ export default function serverSection({
   channelType,
   server,
 }: ServerSectionProps) {
-  const openModal = useModalStore((state) => state.openModal);
+  // eslint-disable-next-line
+  const openModal = useModal((state) => state.openModal);
 
   return (
     <div className={"flex items-center justify-between py-2"}>

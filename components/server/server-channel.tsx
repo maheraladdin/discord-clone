@@ -6,7 +6,7 @@ import { Channel, Server, MemberRole } from "@prisma/client";
 import { cn } from "@/lib/utils";
 import { ActionTooltip } from "@/components/tooltips";
 import { iconMapLucidIcons } from "@/components/types";
-import { ModalType, useModalStore } from "@/hooks/use-modal-store";
+import { ModalType, useModal } from "@/hooks/use-modal";
 
 type ServerChannelProps = {
   channel: Channel;
@@ -19,7 +19,7 @@ export default function ServerChannel({
   server,
   role,
 }: ServerChannelProps) {
-  const openModal = useModalStore((state) => state.openModal);
+  const openModal = useModal((state) => state.openModal);
   const router = useRouter();
   const params = useParams();
 
@@ -38,7 +38,7 @@ export default function ServerChannel({
       onClick={handleClick}
       className={cn(
         "group mb-1 flex w-full items-center gap-x-2 rounded-md p-2 transition-all hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50",
-        params.channelId === channel.id && "bg-zinc-700/20 dark:bg-zinc-700",
+        params?.channelId === channel.id && "bg-zinc-700/20 dark:bg-zinc-700",
       )}
     >
       <Icon
@@ -47,7 +47,7 @@ export default function ServerChannel({
       <p
         className={cn(
           "line-clamp-1 text-sm font-semibold text-zinc-500 transition-all group-hover:text-zinc-600 dark:text-zinc-400 dark:group-hover:text-zinc-300",
-          channel.id === params.channelId &&
+          channel.id === params?.channelId &&
             "text-primary dark:text-zinc-200 dark:group-hover:text-white",
         )}
       >

@@ -5,6 +5,7 @@ import MemberAvatar from "@/components/member-avatar";
 import { MobileToggle } from "@/components/mobile-toggle";
 import { SocketIndicator } from "@/components/socket-indicator";
 import { iconMapLucidIcons, ServerSideBarTypes } from "@/components/types";
+import { ChatAudioButton, ChatVideoButton } from "@/components/chat";
 
 type ChannelIdPageProps = {
   serverId: string;
@@ -46,7 +47,13 @@ export default function ChatHeader({
       <p className={"text-md font-semibold text-black dark:text-white"}>
         {name}
       </p>
-      <div className="ml-auto">
+      <div className="ml-auto flex items-center">
+        {type === ServerSideBarTypes.MEMBER ? (
+          <>
+            <ChatAudioButton />
+            <ChatVideoButton />
+          </>
+        ) : null}
         <SocketIndicator />
       </div>
     </div>

@@ -27,7 +27,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { FileUpload } from "@/components/file-upload";
-import { ModalType, useModalStore } from "@/hooks/use-modal-store";
+import { ModalType, useModal } from "@/hooks/use-modal";
 
 const formSchema = z.object({
   name: z
@@ -41,7 +41,7 @@ const formSchema = z.object({
 });
 
 export default function CreateServerModal() {
-  const { isOpen, type, closeModal } = useModalStore();
+  const { isOpen, type, closeModal } = useModal();
   const isModalOpen = isOpen && type === ModalType.CREATE_SERVER;
   const router = useRouter();
   const form = useForm({

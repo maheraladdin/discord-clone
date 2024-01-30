@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/button";
 import MemberAvatar from "@/components/member-avatar";
 import { ActionTooltip } from "@/components/tooltips";
 import { Form, FormControl, FormItem, FormField } from "@/components/ui/form";
-import { ModalType, useModalStore } from "@/hooks/use-modal-store";
+import { ModalType, useModal } from "@/hooks/use-modal";
 
 type ChatItemProps = {
   id: string;
@@ -71,7 +71,7 @@ export default function ChatItem({
   socketQuery,
 }: ChatItemProps) {
   const platform = usePlatform();
-  const openModel = useModalStore((state) => state.openModal);
+  const openModel = useModal((state) => state.openModal);
   const router = useRouter();
   // membership status
   const isOwner = currentMember.id === member.id;
@@ -109,7 +109,7 @@ export default function ChatItem({
     reset({
       content,
     });
-  }, [content]);
+  }, [content, reset]);
 
   const onClickMember = () => {
     const { serverId, id } = member;

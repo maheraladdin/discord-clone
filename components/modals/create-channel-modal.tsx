@@ -33,7 +33,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { ModalType, useModalStore } from "@/hooks/use-modal-store";
+import { ModalType, useModal } from "@/hooks/use-modal";
 
 const formSchema = z.object({
   name: z
@@ -50,7 +50,7 @@ export default function CreateChannelModal() {
     type,
     closeModal,
     data: { channelType },
-  } = useModalStore();
+  } = useModal();
   const isModalOpen = isOpen && type === ModalType.CREATE_CHANNEL;
   const router = useRouter();
   const params = useParams();
@@ -75,7 +75,7 @@ export default function CreateChannelModal() {
       name: "",
       type: channelType || ChannelType.TEXT,
     });
-  }, [channelType]);
+  }, [channelType, reset]);
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {

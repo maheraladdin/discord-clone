@@ -12,11 +12,11 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { ModalType, useModalStore } from "@/hooks/use-modal-store";
+import { ModalType, useModal } from "@/hooks/use-modal";
 import { Button } from "@/components/ui/button";
 
 export default function LeaveServerModal() {
-  const { isOpen, type, closeModal, data } = useModalStore();
+  const { isOpen, type, closeModal, data } = useModal();
   const router = useRouter();
   const isModalOpen = isOpen && type === ModalType.LEAVE_SERVER;
   const { server } = data;

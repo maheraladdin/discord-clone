@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { devtools } from "zustand/middleware";
 import { Channel, ChannelType, Server } from "@prisma/client";
 
 export enum ModalType {
@@ -36,13 +35,10 @@ type ModalStore = {
   closeModal: () => void;
 };
 
-export const useModalStore = create(
-  devtools<ModalStore>((set) => ({
-    type: null,
-    data: {},
-    isOpen: false,
-    openModal: (type, data = {}) =>
-      set({ isOpen: true, type, data }, false, "openModal"),
-    closeModal: () => set({ isOpen: false }, false, "closeModal"),
-  })),
-);
+export const useModal = create<ModalStore>((set) => ({
+  type: null,
+  data: {},
+  isOpen: false,
+  openModal: (type, data = {}) => set({ isOpen: true, type, data }, false),
+  closeModal: () => set({ isOpen: false }, false),
+}));

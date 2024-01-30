@@ -13,11 +13,11 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { ModalType, useModalStore } from "@/hooks/use-modal-store";
+import { ModalType, useModal } from "@/hooks/use-modal";
 import { Button } from "@/components/ui/button";
 
 export default function DeleteChannelModal() {
-  const { isOpen, type, closeModal, data } = useModalStore();
+  const { isOpen, type, closeModal, data } = useModal();
   const router = useRouter();
   const isModalOpen = isOpen && type === ModalType.DELETE_CHANNEL;
   const { channel, server } = data;

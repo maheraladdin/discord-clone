@@ -27,7 +27,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { FileUpload } from "@/components/file-upload";
-import { ModalType, useModalStore } from "@/hooks/use-modal-store";
+import { ModalType, useModal } from "@/hooks/use-modal";
 import { useEffect } from "react";
 
 const formSchema = z.object({
@@ -47,7 +47,7 @@ export default function EditServerModal() {
     type,
     closeModal,
     data: { server },
-  } = useModalStore();
+  } = useModal();
   const isModalOpen = isOpen && type === ModalType.EDIT_SERVER;
   const router = useRouter();
   const form = useForm({
@@ -74,7 +74,7 @@ export default function EditServerModal() {
         imgUrl,
       });
     }
-  }, [server]);
+  }, [server, reset]);
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {

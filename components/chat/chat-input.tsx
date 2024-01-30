@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Input } from "@/components/ui/input";
 import { ServerSideBarTypes } from "@/components/types";
-import { ModalType, useModalStore } from "@/hooks/use-modal-store";
+import { ModalType, useModal } from "@/hooks/use-modal";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { EmojiPicker } from "@/components/emoji-picker";
 
@@ -32,7 +32,7 @@ export default function ChatInput({
   name,
   type,
 }: ChatInputProps) {
-  const openModal = useModalStore((state) => state.openModal);
+  const openModal = useModal((state) => state.openModal);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

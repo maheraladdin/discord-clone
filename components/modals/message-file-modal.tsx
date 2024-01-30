@@ -26,7 +26,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { FileUpload } from "@/components/file-upload";
-import { ModalType, useModalStore } from "@/hooks/use-modal-store";
+import { ModalType, useModal } from "@/hooks/use-modal";
 
 const formSchema = z.object({
   fileUrl: z
@@ -41,7 +41,7 @@ export default function MessageFileModal() {
     type,
     closeModal,
     data: { apiUrl, query },
-  } = useModalStore();
+  } = useModal();
   const isModalOpen = isOpen && type === ModalType.MESSAGE_FILE;
   const router = useRouter();
   const form = useForm({

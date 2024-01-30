@@ -32,7 +32,7 @@ export default function NavigationItem({
         <div
           className={cn(
             "absolute left-0 w-[4px] rounded-r-full bg-primary transition-all",
-            params.serverId === id
+            params?.serverId === id
               ? "h-[36px]"
               : "h-[8px] group-hover:h-[20px]",
           )}
@@ -40,7 +40,7 @@ export default function NavigationItem({
         <div
           className={cn(
             "group relative mx-3 flex h-[48px] w-[48px] overflow-hidden rounded-[24px] transition-all group-hover:rounded-[16px]",
-            params.serverId === id &&
+            params?.serverId === id &&
               "rounded-[16px] bg-primary/10 text-primary",
           )}
         >

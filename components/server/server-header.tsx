@@ -19,7 +19,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ModalType, useModalStore } from "@/hooks/use-modal-store";
+import { ModalType, useModal } from "@/hooks/use-modal";
 
 type ServerHeaderProps = {
   role?: MemberRole;
@@ -27,7 +27,7 @@ type ServerHeaderProps = {
 };
 
 export default function ServerHeader({ role, server }: ServerHeaderProps) {
-  const openModel = useModalStore((state) => state.openModal);
+  const openModel = useModal((state) => state.openModal);
   const isAdmin = role === MemberRole.ADMIN;
   const isModerator = isAdmin || role === MemberRole.MODERATOR;
   return (

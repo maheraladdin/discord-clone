@@ -30,7 +30,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ModalType, useModalStore } from "@/hooks/use-modal-store";
+import { ModalType, useModal } from "@/hooks/use-modal";
 import { ServerWithMembersAndProfiles } from "@/types";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import MemberAvatar from "@/components/member-avatar";
@@ -41,7 +41,7 @@ import { roleIconMap } from "@/components/types";
 
 export default function ManageMembersModal() {
   const router = useRouter();
-  const { isOpen, type, closeModal, data, openModal } = useModalStore();
+  const { isOpen, type, closeModal, data, openModal } = useModal();
   const [loadingId, setLoadingId] = useState<string>("");
 
   const isModalOpen = isOpen && type === ModalType.MANAGE_MEMBERS;

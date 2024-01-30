@@ -9,7 +9,7 @@ import {
   DialogHeader,
 } from "@/components/ui/dialog";
 
-import { ModalType, useModalStore } from "@/hooks/use-modal-store";
+import { ModalType, useModal } from "@/hooks/use-modal";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -19,7 +19,7 @@ import axios from "axios";
 import { cn } from "@/lib/utils";
 
 export default function InvitePeopleModal() {
-  const { isOpen, type, closeModal, data, openModal } = useModalStore();
+  const { isOpen, type, closeModal, data, openModal } = useModal();
   const origin = useOrigin();
   const isModalOpen = isOpen && type === ModalType.INVITE_PEOPLE;
   const { server } = data;

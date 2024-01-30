@@ -5,16 +5,22 @@ import prisma from "@/lib/prisma";
 import { getOrCreateConversation } from "@/lib/conversation";
 import { ChatHeader, ChatInput, ChatMessages } from "@/components/chat";
 import { ServerSideBarTypes } from "@/components/types";
+import { MediaRoom } from "@/components/media-room";
 
 type MemberIdPageProps = {
   params: {
     serverId: string;
     memberId: string;
   };
+  searchParams: {
+    video?: boolean;
+    audio?: boolean;
+  };
 };
 
 export default async function MemberIdPage({
   params: { serverId, memberId },
+  searchParams: { video, audio },
 }: MemberIdPageProps) {
   const user = await currentUser();
   if (!user) return redirectToSignIn();
@@ -51,27 +57,37 @@ export default async function MemberIdPage({
         serverId={serverId}
         type={ServerSideBarTypes.MEMBER}
       />
-      <ChatMessages
-        member={currentMember}
-        name={otherMember.profile.name}
-        type={"conversation"}
-        apiUrl={"/api/direct-messages"}
-        socketUri={"/api/socket/direct-messages"}
-        socketQuery={{
-          conversationId: conversation.id,
-        }}
-        chatId={conversation.id}
-        paramKey={"conversationId"}
-        paramValue={conversation.id}
-      />
-      <ChatInput
-        apiUrl={`/api/socket/direct-messages`}
-        query={{
-          conversationId: conversation.id,
-        }}
-        name={otherMember.profile.name}
-        type={ServerSideBarTypes.MEMBER}
-      />
+      {!video && !audio ? (
+        <>
+          <ChatMessages
+            member={currentMember}
+            name={otherMember.profile.name}
+            type={"conversation"}
+            apiUrl={"/api/direct-messages"}
+            socketUri={"/api/socket/direct-messages"}
+            socketQuery={{
+              conversationId: conversation.id,
+            }}
+            chatId={conversation.id}
+            paramKey={"conversationId"}
+            paramValue={conversation.id}
+          />
+          <ChatInput
+            apiUrl={`/api/socket/direct-messages`}
+            query={{
+              conversationId: conversation.id,
+            }}
+            name={otherMember.profile.name}
+            type={ServerSideBarTypes.MEMBER}
+          />
+        </>
+      ) : (
+        <MediaRoom
+          chatId={conversation.id}
+          video={!!video}
+          audio={!!audio || !!video}
+        />
+      )}
     </div>
   );
 }
