@@ -42,7 +42,7 @@ export const FileUpload = ({
           alt={alt}
           fill
           className={"rounded-full"}
-          sizes={"(max-width: 80px)"}
+          sizes={"80px"}
         />
         <button
           onClick={async () => {
@@ -120,15 +120,17 @@ export const FileUpload = ({
       endpoint={endpoint}
       onBeforeUploadBegin={(files) => {
         // change the file name to something unique ,for deleting purposes
-        return files.map(
-          (f) =>
-            new File([f], `${uuidv4()}-${f.name.replace(/\s/g, "_")}`, {
-              type: f.type,
-            }),
-        );
+        return files.map((f) => {
+          return new File([f], `${uuidv4()}-${f.name.replace(/\s/g, "_")}`, {
+            type: f.type,
+          });
+        });
       }}
       onClientUploadComplete={(res) => onChange(res?.[0].url)}
       onUploadError={(err) => console.error(err)}
+      className={
+        "ut-button:bg-indigo-500 ut-label:text-indigo-500 ut-button:ut-uploading:after:bg-indigo-600 dark:border-zinc-400 dark:ut-allowed-content:text-zinc-400"
+      }
     />
   );
 };

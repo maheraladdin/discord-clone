@@ -4,6 +4,7 @@ import prisma from "@/lib/prisma";
 import { NextApiResponseServerIo } from "@/types";
 import { currentProfilePages } from "@/lib/current-profile-pages";
 import { MemberRole } from "@prisma/client";
+import { UTApi } from "uploadthing/server";
 
 const handler = async (req: NextApiRequest, res: NextApiResponseServerIo) => {
   if (req.method !== "DELETE" && req.method !== "PATCH")
@@ -68,6 +69,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponseServerIo) => {
     if (!canModify) return res.status(401).json({ error: "Unauthorized" });
 
     if (req.method === "DELETE") {
+      const url = message?.fileUrl;
       message = await prisma.message.update({
         where: {
           id: message.id,
@@ -85,6 +87,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponseServerIo) => {
           },
         },
       });
+
+      if (url) {
+        const newUrl = url.substring(url.lastIndexOf("/") + 1);
+        const utapi = new UTApi();
+        await utapi.deleteFiles(newUrl);
+      }
     }
 
     if (req.method === "PATCH") {

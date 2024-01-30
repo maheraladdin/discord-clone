@@ -95,7 +95,7 @@ export default function InvitePeopleModal() {
           <Button
             variant={"link"}
             size={"sm"}
-            className={"mt-4 text-xs text-zinc-500"}
+            className={"mt-4 text-xs text-zinc-500 dark:text-zinc-400"}
             disabled={generateLoading}
             onClick={onGenerate}
           >

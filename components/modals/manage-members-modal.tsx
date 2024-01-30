@@ -100,11 +100,15 @@ export default function ManageMembersModal() {
                 alt={member.profile.name}
               />
               <div className={"flex flex-col justify-center gap-y-1"}>
-                <div className={"flex items-center gap-x-1 text-sm font-bold"}>
+                <div
+                  className={
+                    "flex items-center gap-x-1 text-sm font-bold dark:text-white"
+                  }
+                >
                   {member.profile.name}
                   {roleIconMap[member.role]}
                 </div>
-                <p className={"text-sm text-zinc-500"}>
+                <p className={"text-sm text-zinc-500 dark:text-zinc-400"}>
                   {member.profile.email}
                 </p>
               </div>
