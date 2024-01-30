@@ -2,7 +2,6 @@ import "./globals.css";
 import "react-h5-audio-player/lib/styles.css";
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
-import { ClerkProvider } from "@clerk/nextjs";
 import { extractRouterConfig } from "uploadthing/server";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 
@@ -11,6 +10,7 @@ import {
   ModalProvider,
   SocketProvider,
   QueryProvider,
+  CustomClerkProvider,
 } from "@/components/providers";
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
@@ -32,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
+    <CustomClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <body className={cn(openSans.className, "bg-white dark:bg-[#313338]")}>
           <NextSSRPlugin
@@ -58,6 +58,6 @@ export default function RootLayout({
           </ThemeProvider>
         </body>
       </html>
-    </ClerkProvider>
+    </CustomClerkProvider>
   );
 }
